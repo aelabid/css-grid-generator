@@ -51,18 +51,17 @@ window.onload = function () {
 
     if (targetDiv && targetDiv.classList.contains("sharedDiv")) {
       const clickedDivId = targetDiv.id;
-      const thisDiv = document.getElementById(clickedDivId);
-      thisDiv.textContent = `div${numDivs}`;
       firstDivToColor = myMap.get(clickedDivId);
     }
   });
 
   mainDiv.addEventListener("mouseup", function (event) {
     const targetDiv = event.target;
-
+    if (firstDivToColor === -1) return;
     if (targetDiv && targetDiv.classList.contains("sharedDiv")) {
       const clickedDivId = targetDiv.id;
-
+      const thisDiv = document.getElementById(clickedDivId);
+      thisDiv.textContent = `div${numDivs}`;
       lastDivToColor = myMap.get(clickedDivId);
       getDivsToColor(firstDivToColor, lastDivToColor);
     }
@@ -90,6 +89,8 @@ function getDivsToColor() {
   } / ${lastDivToColor[1] + 2};
 }\n`;
   numDivs++;
+  firstDivToColor = -1;
+  lastDivToColor = -1;
   colorDivsSelected();
 }
 
